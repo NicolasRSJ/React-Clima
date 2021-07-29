@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "React_Clima",
+    "slug": "React_Clima",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "React_Clima"
+}
