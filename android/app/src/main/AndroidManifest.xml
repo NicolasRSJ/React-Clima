@@ -7,6 +7,12 @@
   <!-- These require runtime permissions on M -->
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <!-- Expo Location Added Permissions -->
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <!-- Expo Location Added Permissions Optional  -->
+  <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
   <!-- END OPTIONAL PERMISSIONS -->
   <application
     android:name=".MainApplication"
