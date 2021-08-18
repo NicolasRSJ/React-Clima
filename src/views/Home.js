@@ -12,7 +12,7 @@ export default function Home() {
     const [temperatura,setTemperatura] = useState(null)
     const [umidade, setUmidade] = useState(null)
     const [velociadeDoVento, setVelociadeDoVento] = useState(null)
-    const [semanas,setSemana] = useState()
+
     const [image,setImage] = useState(null)
     const [key] = useState('f68d6577 ')
     const [latitude,setLatitude] = useState(null)
@@ -45,12 +45,21 @@ export default function Home() {
                 .then(response => response.json())
                 .then(json => {
                     const data = json
-                    if( data.results.currently === 'dia'){
-                        setImage({ uri: Images.dia.uri_Img })
-                    } else if( data.results.currently === 'noite' ){
-                        setImage({ uri: Images.noite.uri_Img })
+                    if( data.results.description === 'Tempo Limpo' && data.results.currently === 'dia' || data.results.description === 'Ensolarado' ){
+                        setImage({ uri: Images.dia_limpo.uri_Img })
+                    } else if( data.results.description === 'Tempo Limpo' && data.results.currently === 'noite' || data.results.description === 'Estrelado'){
+                        setImage({ uri: Images.noite_limpa.uri_Img })
+                    } else if( data.results.description === 'Chuva' && data.results.currently === 'dia' || data.results.description === 'Chuviscos' && data.results.currently === 'dia' ){
+                        setImage({ uri: Images.dia_chuvoso.uri_Img })
+                    } else if( data.results.description === 'Chuva' && data.results.currently === 'noite' || data.results.description === 'Chuviscos' && data.results.currently === 'noite' ){
+                        setImage({ uri: Images.noite_chuvosa.uri_Img })
+                    } else if( data.results.description === 'Tempo nublado' || data.results.description === 'Parcialmente nublado' ){
+                        setImage({ uri: Images.dia_nublado.uri_Img })
+                    } else if( data.results.description === 'Neve' || data.results.description === 'Gelo' || data.results.description === 'Geada fina' || data.results.description === 'Neve baixa' || data.results.description === 'Tempestade com neve' || data.results.description === 'Ventania com neve' || data.results.description === 'Granizo' ){
+                        setImage({ uri: Images.nevando.uri_Img })
+                    } else if( data.results.description === 'Ensolarado com muitas nuvens' ){
+                        setImage({ uri: Images.parcialmente_Ensolarado.uri_Img })
                     }
-                    setSemana(data.results.forecast)
                     setPrimeiro(data.results.forecast[1])
                     setSegundo(data.results.forecast[2])
                     setTerceiro(data.results.forecast[3])
@@ -73,7 +82,6 @@ export default function Home() {
 
     }, []);
     
-    
 
     if(hasPermission === null){
         <View/>
@@ -81,12 +89,6 @@ export default function Home() {
     if(hasPermission === false){
         return alert('Acesso Negado!')
     }
-
-    if(semanas === null){
-        console.log('Está vazio')
-    }else{
-        
-    }    
 
 
     return (
@@ -120,6 +122,16 @@ export default function Home() {
                             horizontal={true}
                             style={styles.containerScrollView}
                         > 
+                            
+                        </ScrollView>
+                    </SafeAreaView>
+                </View>
+            </View>
+        </ImageBackground>       
+    )
+}
+
+/*
                             <View style={styles.containerDiaSemana}>
                                 <Text style={stylesText.textoDiaSemana}> 
                                     {primeiro.weekday} 
@@ -238,13 +250,7 @@ export default function Home() {
                                     {setimo.description}
                                 </Text>
                             </View>
-                        </ScrollView>
-                    </SafeAreaView>
-                </View>
-            </View>
-        </ImageBackground>       
-    )
-}
+*/ 
 
 const styles = StyleSheet.create({
     backgroundImage: {
